@@ -1,0 +1,3 @@
+
+def areaCuadrado():
+    pass
