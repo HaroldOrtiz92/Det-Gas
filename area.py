@@ -11,9 +11,3 @@ def areaRectangulo():
 areaRectangulo() # 18 de Julio del 2023
 
 pi = 3.1416
-
-def areaCirculo():
-    radio = float(input("Ingrese el valor del radio: "))
-    return print("El area del rectangulo es: ", pi *radio **2)
-areaCirculo() # 18 de Julio del 2023
-
