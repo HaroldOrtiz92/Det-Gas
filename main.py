@@ -3,6 +3,7 @@ from utime import sleep_ms
 from machine import Pin , PWM, ADC
 import network, time, urequests
 
+# Función para la conexión a la red Wi-Fi
 def conectaWifi (red, password):
       global miRed
       miRed = network.WLAN(network.STA_IF)     
@@ -16,8 +17,10 @@ def conectaWifi (red, password):
                   return False
       return True
     
+# Definición variable del sensor de gas
 sensorg = MQ2 (Pin(34))
 
+# Llamando función de calibración del sensor de gas
 sensorg.calibrate()
 print("Calibración completa")
 
@@ -31,19 +34,22 @@ if conectaWifi("Redmi Frank", "12345678#"):
 
 
     while True: 
-                
+
+# Ciclo para la lectura de valores del sensor de gas                
         time.sleep (2)
         lectura=float(sensorg.readMethane())
         print("Nivel de metano: {:.1f}".format(lectura) )
         sleep_ms(1)
 
+# condicional de lectura
 
         if lectura > 4.0:
                       
             envio_ifttt = urequests.get(url_1+"&value1="+str(lectura))      
             print( envio_ifttt.text, envio_ifttt.status_code)
             envio_ifttt.close ()
-            
+
+# Activación buzzer            
             buzzer = PWM(Pin(32), freq = 5000)
             for i in range(0, 1023):
                 buzzer.duty(i)
